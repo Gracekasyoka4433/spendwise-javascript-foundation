@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendWise - Budget Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1>SpendWise</h1>
+            <p>Simple budgeting made easier.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h2>Take Control of Your Spending</h2>
+            <p>
+                SpendWise helps you calculate your remaining budget
+                based on your income, budget, and expenses.
+            </p>
+
+            <button id="startButton">Start Budget Calculation</button>
+        </section>
+
+        <section class="dashboard">
+            <div class="card">
+                <h3>Monthly Budget</h3>
+                <p id="budgetDisplay">Not entered</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Expenses</h3>
+                <p id="expenseDisplay">Not entered</p>
+            </div>
+
+            <div class="card">
+                <h3>Remaining Balance</h3>
+                <p id="balanceDisplay">Not calculated</p>
+            </div>
+        </section>
+
+        <section class="instructions">
+            <h2>How SpendWise Works</h2>
+            <ol>
+                <li>Click the button above.</li>
+                <li>Enter your monthly budget when prompted.</li>
+                <li>Enter your expenses when prompted.</li>
+                <li>SpendWise calculates your remaining balance.</li>
+                <li>Check the browser console for detailed results.</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 SpendWise. Budget smarter, spend wiser.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
