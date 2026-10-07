@@ -3,62 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpendWise - Budget Tracker</title>
+    <title>SpendWise Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <header class="header">
-        <div class="container">
-            <h1>SpendWise</h1>
-            <p>Simple budgeting made easier.</p>
-        </div>
-    </header>
+    <div class="dashboard">
 
-    <main class="container">
-        <section class="hero">
-            <h2>Take Control of Your Spending</h2>
-            <p>
-                SpendWise helps you calculate your remaining budget
-                based on your income, budget, and expenses.
-            </p>
-
-            <button id="startButton">Start Budget Calculation</button>
-        </section>
-
-        <section class="dashboard">
-            <div class="card">
-                <h3>Monthly Budget</h3>
-                <p id="budgetDisplay">Not entered</p>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <h2>SpendWise</h2>
+                <p>Smart Budgeting</p>
             </div>
 
-            <div class="card">
-                <h3>Total Expenses</h3>
-                <p id="expenseDisplay">Not entered</p>
+            <nav>
+                <a href="#" class="active">Dashboard</a>
+                <a href="#expenses">Expenses</a>
+                <a href="#budget">Budget</a>
+                <a href="#savings">Savings</a>
+            </nav>
+
+            <div class="profile">
+                <div class="avatar">G</div>
+                <div>
+                    <strong>Grace</strong>
+                    <span>Budget User</span>
+                </div>
             </div>
+        </aside>
 
-            <div class="card">
-                <h3>Remaining Balance</h3>
-                <p id="balanceDisplay">Not calculated</p>
-            </div>
-        </section>
+        <!-- Main Content -->
+        <main class="main-content">
 
-        <section class="instructions">
-            <h2>How SpendWise Works</h2>
-            <ol>
-                <li>Click the button above.</li>
-                <li>Enter your monthly budget when prompted.</li>
-                <li>Enter your expenses when prompted.</li>
-                <li>SpendWise calculates your remaining balance.</li>
-                <li>Check the browser console for detailed results.</li>
-            </ol>
-        </section>
-    </main>
+            <header class="topbar">
+                <div>
+                    <h1>Welcome back, Grace!</h1>
+                    <p>Track your spending and manage your budget.</p>
+                </div>
+            </header>
 
-    <footer>
-        <p>&copy; 2026 SpendWise. Budget smarter, spend wiser.</p>
-    </footer>
+            <!-- Summary Cards -->
+            <section class="summary-cards">
+
+                <div class="summary-card">
+                    <span>Total Budget</span>
+                    <h2 id="budgetAmount">KSh 100,000</h2>
+                </div>
+
+                <div class="summary-card">
+                    <span>Total Spent</span>
+                    <h2 id="spentAmount">KSh 63,500</h2>
+                </div>
+
+                <div class="summary-card">
+                    <span>Remaining Balance</span>
+                    <h2 id="balanceAmount">KSh 36,500</h2>
+                </div>
+
+            </section>
+
+            <!-- Budget Status -->
+            <section class="status-section">
+                <h2>Budget Status</h2>
+                <p id="budgetMessage">
+                    Your budget is currently within a healthy range.
+                </p>
+            </section>
+
+            <!-- Add Expense -->
+            <section class="expense-form-section" id="expenses">
+
+                <h2>Add New Expense</h2>
+
+                <form id="expenseForm">
+
+                    <div class="form-group">
+                        <label for="expenseName">Expense Name</label>
+                        <input
+                            type="text"
+                            id="expenseName"
+                            placeholder="e.g. Groceries"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expenseAmount">Amount (KSh)</label>
+                        <input
+                            type="number"
+                            id="expenseAmount"
+                            placeholder="e.g. 1500"
+                            min="1"
+                            required
+                        >
+                    </div>
+
+                    <button type="submit">Add Expense</button>
+
+                </form>
+
+            </section>
+
+            <!-- Expense Records -->
+            <section class="expense-list-section">
+
+                <div class="section-heading">
+                    <h2>Expense Records</h2>
+                    <span id="expenseCount">0 expenses</span>
+                </div>
+
+                <div id="expenseList" class="expense-list">
+                    <!-- JavaScript will display expenses here -->
+                </div>
+
+            </section>
+
+            <!-- Categories -->
+            <section class="categories" id="budget">
+
+                <h2>Budget Categories</h2>
+
+                <div class="category-grid">
+
+                    <div class="category-card">
+                        <span>Food</span>
+                        <strong>KSh 15,000</strong>
+                        <small>25%</small>
+                    </div>
+
+                    <div class="category-card">
+                        <span>Transport</span>
+                        <strong>KSh 9,500</strong>
+                        <small>15%</small>
+                    </div>
+
+                    <div class="category-card">
+                        <span>Rent</span>
+                        <strong>KSh 19,000</strong>
+                        <small>30%</small>
+                    </div>
+
+                    <div class="category-card">
+                        <span>Entertainment</span>
+                        <strong>KSh 5,000</strong>
+                        <small>8%</small>
+                    </div>
+
+                    <div class="category-card" id="savings">
+                        <span>Savings</span>
+                        <strong>KSh 7,500</strong>
+                        <small>12%</small>
+                    </div>
+
+                    <div class="category-card">
+                        <span>Utilities</span>
+                        <strong>KSh 6,500</strong>
+                        <small>10%</small>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
 
     <script src="script.js"></script>
+
 </body>
 </html>
