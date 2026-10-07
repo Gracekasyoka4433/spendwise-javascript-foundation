@@ -1,179 +1,191 @@
-// SpendWise Budget Tracker
-// JavaScript Foundation Assignment
+// SpendWise Week 6 - Interactive Budget Dashboard
 
-// --------------------------------------------------
-// 1. VARIABLES AND APPLICATION DATA
-// --------------------------------------------------
+// -----------------------------
+// 1. Variables
+// -----------------------------
 
-// Budget-related variables
-let monthlyBudget = 0;
-let totalExpenses = 0;
-let remainingBalance = 0;
+const budget = 100000;
 
-// Expense variables
-let foodExpense = 0;
-let transportExpense = 0;
-let housingExpense = 0;
-let otherExpense = 0;
+// -----------------------------
+// 2. Array of expense records
+// -----------------------------
 
+let expenses = [
+    {
+        name: "Food",
+        amount: 15000
+    },
+    {
+        name: "Transport",
+        amount: 9500
+    },
+    {
+        name: "Rent",
+        amount: 19000
+    },
+    {
+        name: "Entertainment",
+        amount: 5000
+    },
+    {
+        name: "Utilities",
+        amount: 6500
+    },
+    {
+        name: "Savings",
+        amount: 7500
+    }
+];
 
-// --------------------------------------------------
-// 2. FUNCTIONS
-// --------------------------------------------------
+// -----------------------------
+// 3. Select HTML elements
+// -----------------------------
 
-/*
- * Calculates the remaining balance.
- * Formula:
- * Remaining Balance = Monthly Budget - Total Expenses
- */
-function calculateRemainingBalance(budget, expenses) {
-    return budget - expenses;
+const budgetAmount = document.getElementById("budgetAmount");
+const spentAmount = document.getElementById("spentAmount");
+const balanceAmount = document.getElementById("balanceAmount");
+const budgetMessage = document.getElementById("budgetMessage");
+
+const expenseForm = document.getElementById("expenseForm");
+const expenseName = document.getElementById("expenseName");
+const expenseAmount = document.getElementById("expenseAmount");
+
+const expenseList = document.getElementById("expenseList");
+const expenseCount = document.getElementById("expenseCount");
+
+// -----------------------------
+// 4. Calculate total expenses
+// -----------------------------
+
+function calculateTotalExpenses() {
+
+    let total = 0;
+
+    // Loop through the expense array
+    for (let i = 0; i < expenses.length; i++) {
+        total += expenses[i].amount;
+    }
+
+    return total;
 }
 
+// -----------------------------
+// 5. Display currency
+// -----------------------------
 
-/*
- * Calculates total expenses from individual
- * expense categories.
- */
-function calculateTotalExpenses(food, transport, housing, other) {
-    return food + transport + housing + other;
-}
-
-
-/*
- * Formats a number as currency.
- */
 function formatCurrency(amount) {
-    return "KES " + amount.toFixed(2);
+    return "KSh " + amount.toLocaleString();
 }
 
+// -----------------------------
+// 6. Update budget information
+// -----------------------------
 
-/*
- * Collects information from the user using
- * JavaScript prompt() input.
- */
-function collectBudgetInformation() {
-    let budgetInput = prompt("Enter your monthly budget in KES:");
+function updateDashboard() {
 
-    if (budgetInput === null || budgetInput.trim() === "") {
-        alert("Budget calculation cancelled.");
-        return false;
-    }
+    const totalSpent = calculateTotalExpenses();
+    const balance = budget - totalSpent;
 
-    monthlyBudget = Number(budgetInput);
+    // Update values on the webpage
+    budgetAmount.textContent = formatCurrency(budget);
+    spentAmount.textContent = formatCurrency(totalSpent);
+    balanceAmount.textContent = formatCurrency(balance);
 
-    if (isNaN(monthlyBudget) || monthlyBudget < 0) {
-        alert("Please enter a valid positive budget amount.");
-        return false;
-    }
+    // -----------------------------
+    // Conditional statements
+    // -----------------------------
 
-    let foodInput = prompt("Enter your food expenses in KES:");
-    let transportInput = prompt("Enter your transport expenses in KES:");
-    let housingInput = prompt("Enter your housing expenses in KES:");
-    let otherInput = prompt("Enter your other expenses in KES:");
+    if (balance < 0) {
 
-    foodExpense = Number(foodInput);
-    transportExpense = Number(transportInput);
-    housingExpense = Number(housingInput);
-    otherExpense = Number(otherInput);
+        budgetMessage.textContent =
+            "Warning: You have exceeded your budget.";
 
-    // Make sure empty or invalid expense inputs are treated as zero.
-    if (isNaN(foodExpense) || foodExpense < 0) {
-        foodExpense = 0;
-    }
+        budgetMessage.style.color = "#c62828";
 
-    if (isNaN(transportExpense) || transportExpense < 0) {
-        transportExpense = 0;
-    }
+    } else if (totalSpent >= budget * 0.8) {
 
-    if (isNaN(housingExpense) || housingExpense < 0) {
-        housingExpense = 0;
-    }
+        budgetMessage.textContent =
+            "Caution: You have used 80% or more of your budget.";
 
-    if (isNaN(otherExpense) || otherExpense < 0) {
-        otherExpense = 0;
-    }
+        budgetMessage.style.color = "#d97706";
 
-    return true;
-}
-
-
-/*
- * Displays the results on the webpage.
- */
-function displayResults() {
-    document.getElementById("budgetDisplay").textContent =
-        formatCurrency(monthlyBudget);
-
-    document.getElementById("expenseDisplay").textContent =
-        formatCurrency(totalExpenses);
-
-    document.getElementById("balanceDisplay").textContent =
-        formatCurrency(remainingBalance);
-
-    // Change the balance color depending on the result.
-    const balanceElement = document.getElementById("balanceDisplay");
-
-    if (remainingBalance < 0) {
-        balanceElement.style.color = "#d32f2f";
     } else {
-        balanceElement.style.color = "#176b5d";
+
+        budgetMessage.textContent =
+            "Good job! Your spending is within a healthy range.";
+
+        budgetMessage.style.color = "#18864b";
     }
 }
 
+// -----------------------------
+// 7. Display expense records
+// -----------------------------
 
-/*
- * Runs the complete budget calculation.
- */
-function runBudgetCalculator() {
-    const informationCollected = collectBudgetInformation();
+function displayExpenses() {
 
-    if (!informationCollected) {
+    // Clear the existing list
+    expenseList.innerHTML = "";
+
+    // Loop through all expense records
+    for (let i = 0; i < expenses.length; i++) {
+
+        const expense = expenses[i];
+
+        const expenseItem = document.createElement("div");
+
+        expenseItem.className = "expense-item";
+
+        expenseItem.innerHTML = `
+            <span>${expense.name}</span>
+            <strong>${formatCurrency(expense.amount)}</strong>
+        `;
+
+        expenseList.appendChild(expenseItem);
+    }
+
+    expenseCount.textContent =
+        `${expenses.length} expense${expenses.length === 1 ? "" : "s"}`;
+}
+
+// -----------------------------
+// 8. Handle form submission
+// -----------------------------
+
+expenseForm.addEventListener("submit", function(event) {
+
+    // Prevent page refresh
+    event.preventDefault();
+
+    const name = expenseName.value.trim();
+    const amount = Number(expenseAmount.value);
+
+    // Validate user input
+    if (name === "" || amount <= 0 || isNaN(amount)) {
+
+        alert("Please enter a valid expense name and amount.");
+
         return;
     }
 
-    // Calculate total expenses.
-    totalExpenses = calculateTotalExpenses(
-        foodExpense,
-        transportExpense,
-        housingExpense,
-        otherExpense
-    );
+    // Add new expense to the array
+    expenses.push({
+        name: name,
+        amount: amount
+    });
 
-    // Calculate remaining balance.
-    remainingBalance = calculateRemainingBalance(
-        monthlyBudget,
-        totalExpenses
-    );
+    // Update webpage
+    displayExpenses();
+    updateDashboard();
 
-    // Display results on the webpage.
-    displayResults();
+    // Clear form
+    expenseForm.reset();
 
-    // Display clearly labeled results in the browser console.
-    console.log("========== SpendWise Budget Report ==========");
-    console.log("Monthly Budget:", formatCurrency(monthlyBudget));
-    console.log("Food Expenses:", formatCurrency(foodExpense));
-    console.log("Transport Expenses:", formatCurrency(transportExpense));
-    console.log("Housing Expenses:", formatCurrency(housingExpense));
-    console.log("Other Expenses:", formatCurrency(otherExpense));
-    console.log("Total Expenses:", formatCurrency(totalExpenses));
-    console.log("Remaining Balance:", formatCurrency(remainingBalance));
+});
 
-    if (remainingBalance < 0) {
-        console.log("Status: You have exceeded your budget.");
-    } else if (remainingBalance === 0) {
-        console.log("Status: Your budget has been completely spent.");
-    } else {
-        console.log("Status: You are within your budget.");
-    }
+// -----------------------------
+// 9. Initial dashboard display
+// -----------------------------
 
-    console.log("=============================================");
-}
-
-
-// --------------------------------------------------
-// 3. EVENT LISTENER
-// --------------------------------------------------
-
-// Run the calculator when the user clicks the button.
-document.getElementById("startButton").addEventListener("click", runBudgetCalculator);
+displayExpenses();
+updateDashboard();
