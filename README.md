@@ -1,229 +1,162 @@
-SpendWise - JavaScript Foundation
-Project Description
+# SpendWise - Interactive Budget Dashboard
 
-SpendWise is a simple budgeting application designed to help users understand their monthly spending and remaining balance.
+## Project Description
 
-The application allows a user to enter a monthly budget and different expense categories. JavaScript processes the information, calculates the total expenses, and determines the remaining balance.
+SpendWise is a budgeting application designed to help users monitor their spending, manage expenses, and track their remaining budget.
 
-The project demonstrates the JavaScript concepts covered in the JavaScript Foundation assignment.
+This week's improvements make SpendWise interactive by allowing users to add expenses, automatically calculate spending totals, display expense records, and receive feedback about their budget.
 
-Files Included
+## Improvements Made This Week
 
-index.html - Contains the structure and content of the SpendWise webpage.
+The following improvements were implemented:
 
-style.css - Contains the styling and layout for the application.
+* Added interactive expense entry.
+* Added an array to store multiple expense records.
+* Added loops to process and display expenses.
+* Added conditional statements for budget decisions.
+* Added DOM manipulation to update the dashboard dynamically.
+* Added event listeners to respond to user actions.
+* Added automatic calculation of total spending and remaining balance.
+* Added budget feedback based on the user's spending level.
 
-script.js - Contains the JavaScript variables, functions, calculations, user input, and results.
+## JavaScript Concepts Implemented
 
-README.md - Contains information about the project and the JavaScript concepts implemented.
+### 1. Conditional Statements
 
-JavaScript Concepts Implemented
+SpendWise uses `if`, `else if`, and `else` statements to evaluate the user's budget.
 
-The SpendWise application demonstrates the following JavaScript concepts:
+The application checks whether:
 
-1. Variables
+* The user has exceeded the budget.
+* The user has used 80% or more of the budget.
+* The user's spending is still within a healthy range.
 
-Variables are used to store information needed by the application.
+This allows SpendWise to provide appropriate feedback to the user.
 
-For example:
+### 2. Arrays
 
-let monthlyBudget = 0;
-let totalExpenses = 0;
-let remainingBalance = 0;
+An array called `expenses` is used to store multiple expense records.
 
-
-Additional variables store individual expense categories:
-
-let foodExpense = 0;
-let transportExpense = 0;
-let housingExpense = 0;
-let otherExpense = 0;
-
-
-The variables are updated with information entered by the user.
-
-2. Data Types
-
-The project uses several JavaScript data types.
-
-Numbers are used for budget and expense amounts:
-
-let monthlyBudget = 0;
-let foodExpense = 0;
-
-
-Strings are used for formatted currency and messages:
-
-return "KES " + amount.toFixed(2);
-
-
-Boolean values are returned by the collectBudgetInformation() function to indicate whether the user's information was successfully collected.
-
-How User Input Is Collected
-
-SpendWise uses the JavaScript prompt() function to collect information from the user.
-
-For example:
-
-let budgetInput = prompt("Enter your monthly budget in KES:");
-
-
-The application collects the monthly budget and four expense categories:
-
-Food
-
-Transport
-
-Housing
-
-Other expenses
-
-The input received from prompt() is converted into numbers using Number() so that mathematical calculations can be performed.
+Each record contains an expense name and amount.
 
 Example:
 
-monthlyBudget = Number(budgetInput);
+```javascript
+let expenses = [
+    {
+        name: "Food",
+        amount: 15000
+    },
+    {
+        name: "Transport",
+        amount: 9500
+    }
+];
+```
 
-How Calculations Are Performed
+When the user adds a new expense, the new record is added to the array using `push()`.
 
-SpendWise first calculates the total expenses by adding the individual expense categories together.
+### 3. Loops
 
-totalExpenses = calculateTotalExpenses(
-    foodExpense,
-    transportExpense,
-    housingExpense,
-    otherExpense
-);
+A `for` loop is used to process the expense records.
 
+The loop calculates the total amount spent and also displays each expense on the webpage.
 
-The total expenses are calculated using:
+This makes it possible to work with multiple records efficiently without writing separate code for every expense.
 
-return food + transport + housing + other;
+### 4. DOM Manipulation
 
+JavaScript is used to update the webpage directly.
 
-The application then calculates the remaining balance using:
+Methods and properties such as:
 
-remainingBalance = calculateRemainingBalance(
-    monthlyBudget,
-    totalExpenses
-);
+* `getElementById()`
+* `createElement()`
+* `textContent`
+* `innerHTML`
+* `appendChild()`
 
+are used to display expense records, total spending, remaining balance, and budget messages.
 
-The remaining balance is calculated using the formula:
+The results are therefore displayed directly on the SpendWise dashboard instead of only appearing in the browser console.
 
-Remaining Balance = Monthly Budget - Total Expenses
+### 5. Event Handling
 
+SpendWise uses an event listener to respond when the user submits the expense form.
 
-For example, if the monthly budget is KES 50,000 and total expenses are KES 35,000:
+```javascript
+expenseForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+});
+```
 
-50,000 - 35,000 = 15,000
+The event listener allows the application to receive user input, process the information, add it to the expense array, and update the dashboard.
 
+### 6. User Input
 
-The remaining balance would therefore be KES 15,000.
+Users enter:
 
-How Functions Organize the Code
+* Expense name
+* Expense amount
 
-Functions are used to divide the application into smaller, reusable sections.
+The JavaScript program validates the input before adding the expense to the application.
 
-calculateRemainingBalance()
+### 7. Dynamic Calculations
 
-This function calculates the remaining balance.
+The application automatically calculates:
 
-function calculateRemainingBalance(budget, expenses) {
-    return budget - expenses;
-}
+* Total budget
+* Total amount spent
+* Remaining balance
 
-calculateTotalExpenses()
+The remaining balance is calculated using:
 
-This function adds all expense categories together.
+```text
+Remaining Balance = Budget - Total Expenses
+```
 
-function calculateTotalExpenses(food, transport, housing, other) {
-    return food + transport + housing + other;
-}
+## Challenges Encountered
 
-collectBudgetInformation()
+One challenge was connecting the JavaScript data to the webpage so that changes would appear immediately.
 
-This function collects and validates the user's budget and expense information.
+This was resolved by using DOM manipulation and functions that recalculate and redraw the dashboard whenever a new expense is added.
 
-formatCurrency()
+Another challenge was handling invalid user input. This was resolved by checking that the expense name is not empty and that the amount is a valid positive number before adding the record.
 
-This function formats numbers as Kenyan Shilling currency.
+## Technologies Used
 
-displayResults()
+* HTML5
+* CSS3
+* JavaScript
+* DOM Manipulation
+* Git
+* GitHub
 
-This function updates the webpage with the calculated budget, expenses, and remaining balance.
+## Project Structure
 
-runBudgetCalculator()
+```text
+SpendWise-Dashboard/
+│
+├── index.html
+├── style.css
+├── script.js
+└── README.md
+```
 
-This function controls the overall process. It collects the user's information, performs the calculations, displays the results, and sends the results to the browser console.
+## Testing
 
-Using functions makes the JavaScript code easier to understand, organize, reuse, and maintain.
+The application was tested by:
 
-Displaying Results
+1. Loading the dashboard in a web browser.
+2. Checking that the initial expenses are displayed.
+3. Adding a new expense.
+4. Checking that the expense appears in the list.
+5. Checking that the total spent updates.
+6. Checking that the remaining balance updates.
+7. Testing invalid expense input.
+8. Checking that the budget warning changes according to spending.
 
-The application displays the calculated information in two ways.
+## Conclusion
 
-First, the results are displayed on the webpage:
+The Week 6 version of SpendWise demonstrates how JavaScript can make a webpage interactive. It uses conditionals for decision making, arrays for storing records, loops for processing data, DOM manipulation for dynamic webpage updates, and event listeners for responding to user actions.
 
-Monthly Budget
-
-Total Expenses
-
-Remaining Balance
-
-Second, detailed results are displayed in the browser console using console.log().
-
-Example:
-
-console.log("Monthly Budget:", formatCurrency(monthlyBudget));
-console.log("Total Expenses:", formatCurrency(totalExpenses));
-console.log("Remaining Balance:", formatCurrency(remainingBalance));
-
-
-The console also displays whether the user is within their budget or has exceeded it.
-
-How to Run the Project
-
-Download or clone the repository.
-
-Make sure all four files are in the same folder.
-
-Open index.html in a web browser.
-
-Click Start Budget Calculation.
-
-Enter the requested budget and expense information.
-
-View the calculated results on the webpage.
-
-Open the browser Developer Tools and select the Console tab to view the detailed JavaScript output.
-
-Testing
-
-The application was designed to test the following scenarios:
-
-A budget greater than total expenses.
-
-A budget equal to total expenses.
-
-Expenses greater than the budget.
-
-Different expense categories.
-
-Invalid or empty budget input.
-
-Invalid expense input.
-
-The application uses JavaScript validation to prevent invalid budget values from being used in the calculation.
-
-Technologies Used
-
-HTML5
-
-CSS3
-
-JavaScript
-
-Author
-
-SpendWise JavaScript Foundation Project
